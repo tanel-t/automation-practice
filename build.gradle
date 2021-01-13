@@ -55,8 +55,8 @@ task cucumber() {
 task generatereport(){
 
     doLast {
-        File reportOutputDirectory = new File("build/cucumber");
-        List<String> jsonFiles = new ArrayList<>();
+        File reportOutputDirectory = new File("$project.projectDir"+"/build")
+        List<String> jsonFiles = new ArrayList<>()
         jsonFiles.add("build/cucumber/json/cucumber.json")
         String projectName = "Automation Practice"
 
