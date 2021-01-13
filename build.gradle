@@ -40,7 +40,7 @@ import net.masterthought.cucumber.ReportBuilder
 
 task cucumber() {
     dependsOn assemble, testClasses
-    doFirst {
+    doLast {
         javaexec {
             main = "io.cucumber.core.cli.Main"
             classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
@@ -53,12 +53,17 @@ task cucumber() {
 }
 
 task generatereport(){
-    File reportOutputDirectory = new File("build/cucumber/report");
-    List<String> jsonFiles = new ArrayList<>();
-    jsonFiles.add("build/cucumber/json/cucumber.json")
-    String projectName = "Automation Practice"
 
-    Configuration configuration = new Configuration(reportOutputDirectory, projectName)
-    ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration)
-    reportBuilder.generateReports()
+    doLast {
+        File reportOutputDirectory = new File("build/cucumber");
+        List<String> jsonFiles = new ArrayList<>();
+        jsonFiles.add("build/cucumber/json/cucumber.json")
+        String projectName = "Automation Practice"
+
+        Configuration configuration = new Configuration(reportOutputDirectory, projectName)
+        ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration)
+        reportBuilder.generateReports()
+    }
 }
+
+tasks.cucumber.finalizedBy(generatereport)

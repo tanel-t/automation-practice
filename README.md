@@ -17,8 +17,7 @@ Project contains 5 automated test cases for [Selenium Frameworks practice web pa
 >gradle cucumber
 
 ## 4. Generating report
-Cucumber is creating a .json file as a result in build/cucumber/json folder.
-For a more readable report execute the following command after test run is finished
+Cucumber is creating a .json file as a result in build/cucumber/json folder. After test run a html report will also be created in build/cucumber/cucumber-html-reports folder.
+Report generation can also be manually triggered using command if automatic generation should fail.
 >gradle generatereport
 
-This will generate html reports in build/cucumber/report/cucumber-html-reports folder.
