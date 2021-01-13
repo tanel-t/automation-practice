@@ -11,49 +11,102 @@ import java.util.List;
 public class MainPage {
 
     @FindBy(id = "search_query_top")
-    public WebElement searchField;
+    private WebElement searchField;
 
     @FindBy(name = "submit_search")
-    public WebElement searchButton;
+    private WebElement searchButton;
 
     @FindBy(css = ".ac_results li")
-    public WebElement firstSearchSuggestion;
+    private WebElement firstSearchSuggestion;
 
     @FindBy(css= ".sf-menu>li>.sf-with-ul[title='Dresses']")
-    public WebElement menuDresses;
+    private WebElement menuDresses;
 
     @FindBy(css =  ".primary_block.row")
-    public WebElement productContainer;
+    private WebElement productContainer;
 
     @FindBy(css =  ".product_list.grid.row .ajax_block_product")
-    public List<WebElement> productList;
+    private List<WebElement> productList;
 
     @FindBy(css =".add_to_compare:not(.checked)")
-    public List<WebElement> addToComparisonLinks;
+    private List<WebElement> addToComparisonLinks;
 
     @FindBy(css =  ".compare-form")
-    public WebElement compareButton;
+    private WebElement compareButton;
 
     @FindBy(css =  "#product_comparison .ajax_block_product")
-    public List<WebElement> comparisonList;
+    private List<WebElement> comparisonList;
 
     @FindBy(css =  "#wishlist_button")
-    public WebElement addToWishlist;
+    private WebElement addToWishlist;
 
     @FindBy(css =  ".fancybox-error")
-    public WebElement errorMessage;
+    private WebElement errorMessage;
 
     @FindBy(css =  ".quick-view")
-    public WebElement quickViewIcon;
+    private WebElement quickViewIcon;
 
     @FindBy(css =  ".fancybox-iframe")
-    public WebElement popupIFrame;
+    private WebElement popupIFrame;
 
     public WebElement getFilterElement(String label){
         return DriverManager.getInstance().findElement(By.xpath("//label/a[text() = '"+label+"']"));
     }
+
     public MainPage() {
         PageFactory.initElements(DriverManager.getInstance(), this);
+    }
+
+    public WebElement getSearchField() {
+        return searchField;
+    }
+
+    public WebElement getSearchButton() {
+        return searchButton;
+    }
+
+    public WebElement getFirstSearchSuggestion() {
+        return firstSearchSuggestion;
+    }
+
+    public WebElement getMenuDresses() {
+        return menuDresses;
+    }
+
+    public WebElement getProductContainer() {
+        return productContainer;
+    }
+
+    public List<WebElement> getProductList() {
+        return productList;
+    }
+
+    public List<WebElement> getAddToComparisonLinks() {
+        return addToComparisonLinks;
+    }
+
+    public WebElement getCompareButton() {
+        return compareButton;
+    }
+
+    public List<WebElement> getComparisonList() {
+        return comparisonList;
+    }
+
+    public WebElement getAddToWishlist() {
+        return addToWishlist;
+    }
+
+    public WebElement getErrorMessage() {
+        return errorMessage;
+    }
+
+    public WebElement getQuickViewIcon() {
+        return quickViewIcon;
+    }
+
+    public WebElement getPopupIFrame() {
+        return popupIFrame;
     }
 
 }

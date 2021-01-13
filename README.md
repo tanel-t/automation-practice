@@ -21,4 +21,4 @@ Cucumber is creating a .json file as a result in build/cucumber/json folder.
 For a more readable report execute the following command after test run is finished
 >gradle generatereport
 
-This will generate a html reports in build/cucumber/report/cucumber-html-reports folder.
+This will generate html reports in build/cucumber/report/cucumber-html-reports folder.

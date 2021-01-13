@@ -26,7 +26,7 @@ public class MainPageSteps {
 
     @And("user types {} into search field")
     public void userTypesIntoSearchField(String keyword) {
-        mainPage.searchField.sendKeys(keyword);
+        mainPage.getSearchField().sendKeys(keyword);
     }
 
     @Given("User has navigated to main page")
@@ -36,17 +36,17 @@ public class MainPageSteps {
 
     @When("user selects first suggestion")
     public void userSelectsFirstSuggestion() {
-        mainPage.firstSearchSuggestion.click();
+        mainPage.getFirstSearchSuggestion().click();
     }
 
     @Then("product page is displayed")
     public void productPageIsDisplayed() {
-        assertTrue(mainPage.productContainer.isDisplayed());
+        assertTrue(mainPage.getProductContainer().isDisplayed());
     }
 
     @And("user clicks Dresses in menu")
     public void userClicksDressesInMenu() {
-        mainPage.menuDresses.click();
+        mainPage.getMenuDresses().click();
     }
 
     @When("user sets catalog filters to")
@@ -57,7 +57,7 @@ public class MainPageSteps {
 
     @Then("product list contains items available in color {word}")
     public void productListContainsItemsAvailableInColor(String color) {
-        Optional<WebElement> element = mainPage.productList.stream().filter(x -> findSubElement(x, By.cssSelector("a[href*='" + color.toLowerCase() + "']")) == null).findFirst();
+        Optional<WebElement> element = mainPage.getProductList().stream().filter(x -> findSubElement(x, By.cssSelector("a[href*='" + color.toLowerCase() + "']")) == null).findFirst();
         assertFalse("One ore more products were not available in color " + color, element.isPresent());
     }
 
@@ -72,30 +72,30 @@ public class MainPageSteps {
 
     @When("user executes search")
     public void userExecutesSearch() {
-        mainPage.searchButton.click();
+        mainPage.getSearchButton().click();
     }
 
     @Then("list of search results is displayed")
     public void listOfSearchResultsIsDisplayed() {
-        assertFalse("Search result list is empty", mainPage.productList.isEmpty());
+        assertFalse("Search result list is empty", mainPage.getProductList().isEmpty());
     }
 
     @And("user adds item {int} to comparison")
-    public void userAddsAnItemToComparison(int id) throws InterruptedException {
+    public void userAddsAnItemToComparison(int id){
         Actions actions = new Actions(driver);
-        actions.moveToElement(mainPage.productList.get(id)).pause(1).moveToElement(mainPage.addToComparisonLinks.get(id)).click().build().perform();
+        actions.moveToElement(mainPage.getProductList().get(--id)).pause(1).moveToElement(mainPage.getAddToComparisonLinks().get(id)).click().build().perform();
         //small workaround for button activation
         driver.navigate().refresh();
     }
 
     @When("user clicks Compare")
     public void userClicksCompare() {
-        mainPage.compareButton.click();
+        mainPage.getCompareButton().click();
     }
 
     @Then("{int} items are displayed in comparing list")
     public void itemsAreDisplayedInComparingList(int amount) {
-        int actualSize = mainPage.comparisonList.size();
+        int actualSize = mainPage.getComparisonList().size();
         assertEquals("Expected " + amount + " items in comparison, but found " + actualSize, actualSize, amount);
 
     }
@@ -103,17 +103,17 @@ public class MainPageSteps {
     @And("user opens product page of the first result")
     public void userOpensProductPageOfTheFirstResult() {
         Actions actions = new Actions(driver);
-        actions.moveToElement(mainPage.productList.get(0)).moveToElement(mainPage.quickViewIcon).click().build().perform();
+        actions.moveToElement(mainPage.getProductList().get(0)).moveToElement(mainPage.getQuickViewIcon()).click().build().perform();
     }
 
     @When("user clicks Add to wishlist on product quick view")
     public void userClicksAddToWishlistOnProductPage() {
-        driver.switchTo().frame(mainPage.popupIFrame);
-        mainPage.addToWishlist.click();
+        driver.switchTo().frame(mainPage.getPopupIFrame());
+        mainPage.getAddToWishlist().click();
     }
 
     @Then("user is notified of logging in requirement")
     public void userIsNotifiedOfLoggingInRequirement() {
-        assertTrue("Error message is not displayed", mainPage.errorMessage.isDisplayed());
+        assertTrue("Error message is not displayed", mainPage.getErrorMessage().isDisplayed());
     }
 }

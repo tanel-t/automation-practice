@@ -18,13 +18,13 @@ repositories {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    compile group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '4.2.2'
-    compile group: 'io.cucumber', name: 'cucumber-java', version: '6.9.0'
-    compile group: 'io.cucumber', name: 'cucumber-junit', version: '6.9.0'
-    compile group: 'io.cucumber', name: 'cucumber-core', version: '6.9.0'
-    compile group: 'io.cucumber', name: 'cucumber-html', version: '0.2.7'
-    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+    implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '4.2.2'
+    implementation group: 'io.cucumber', name: 'cucumber-java', version: '6.9.0'
+    implementation group: 'io.cucumber', name: 'cucumber-junit', version: '6.9.0'
+    implementation group: 'io.cucumber', name: 'cucumber-core', version: '6.9.0'
+    implementation group: 'io.cucumber', name: 'cucumber-html', version: '0.2.7'
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
 }
 
 configurations {
@@ -47,6 +47,7 @@ task cucumber() {
             args = ['--plugin', 'pretty',
                     '--plugin', 'json:build/cucumber/json/cucumber.json',
                     '--glue', 'automationpractice.stepdefinitions', 'src/test/resources']
+            ignoreExitValue = true
         }
     }
 }

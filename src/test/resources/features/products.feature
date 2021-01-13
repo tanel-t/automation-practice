@@ -24,8 +24,8 @@ Feature: Product and purchase related functional tests
 
   Scenario: Comparing products
     And user clicks Dresses in menu
-    And user adds item 0 to comparison
     And user adds item 1 to comparison
+    And user adds item 2 to comparison
     When user clicks Compare
     Then 2 items are displayed in comparing list
 
