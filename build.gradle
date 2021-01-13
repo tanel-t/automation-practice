@@ -1,0 +1,63 @@
+buildscript {
+    dependencies {
+        classpath(group: 'net.masterthought', name: 'cucumber-reporting', version: '5.4.0')
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '4.2.2'
+    compile group: 'io.cucumber', name: 'cucumber-java', version: '6.9.0'
+    compile group: 'io.cucumber', name: 'cucumber-junit', version: '6.9.0'
+    compile group: 'io.cucumber', name: 'cucumber-core', version: '6.9.0'
+    compile group: 'io.cucumber', name: 'cucumber-html', version: '0.2.7'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+}
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
+}
+
+import net.masterthought.cucumber.Configuration
+import net.masterthought.cucumber.ReportBuilder
+
+
+
+task cucumber() {
+    dependsOn assemble, testClasses
+    doFirst {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = ['--plugin', 'pretty',
+                    '--plugin', 'json:build/cucumber/json/cucumber.json',
+                    '--glue', 'automationpractice.stepdefinitions', 'src/test/resources']
+        }
+    }
+}
+
+task generatereport(){
+    File reportOutputDirectory = new File("build/cucumber/report");
+    List<String> jsonFiles = new ArrayList<>();
+    jsonFiles.add("build/cucumber/json/cucumber.json")
+    String projectName = "Automation Practice"
+
+    Configuration configuration = new Configuration(reportOutputDirectory, projectName)
+    ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration)
+    reportBuilder.generateReports()
+}
